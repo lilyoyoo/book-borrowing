@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Borrowing System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
         }
-        h1, h2, h3 {
+
+        h1,
+        h2,
+        h3 {
             text-align: center;
             color: #4A4A4A;
         }
+
         .section {
-            display: none; /* Hide all sections by default */
+            display: none;
         }
+
         .active {
-            display: block; /* Show the active section */
+            display: block;
         }
-        #auth-section, #borrow-section {
-            background-color: #EAE1D5;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #auth-section,
+        #borrow-section {
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            max-width: 400px;
-            margin: 30px auto;
+            margin: 20px 0;
         }
-        input, select, button {
+
+        input,
+        select,
+        button {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -37,6 +54,7 @@
             border-radius: 4px;
             font-size: 16px;
         }
+
         button {
             background-color: #8B6F54;
             color: white;
@@ -44,97 +62,140 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         button:hover {
             background-color: #5B4C3A;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         li {
-            padding: 8px;
+            padding: 10px;
             background: #fff;
-            margin: 5px 0;
+            margin: 8px 0;
             border-radius: 4px;
             border: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         li.borrowed {
             background-color: #f8d7da;
             color: #721c24;
         }
+
+        h3 {
+            color: #8B6F54;
+        }
+
+        .message {
+            text-align: center;
+            color: red;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #8B6F54;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            #auth-section,
+            #borrow-section {
+                padding: 20px;
+            }
+        }
     </style>
     <script type="module" src="firebaseauth.js"></script>
 </head>
+
 <body>
-    <h1>Library Borrowing System</h1>
+    <div class="container">
+        <h1>Library Borrowing System</h1>
 
-    <!-- Login Section -->
-    <div id="login-section" class="section active">
-        <h2>Login</h2>
-        <div id="auth-section">
-            <label for="username-login">Username</label>
-            <input type="text" id="username-login" placeholder="Enter your username" required>
-            
-            <label for="password-login">Password</label>
-            <input type="password" id="password-login" placeholder="Enter your password" required>
-            
-            <button onclick="login()">Login</button>
-            <div id="auth-message"></div>
-            <button onclick="showSection('register-section')">Register</button>
+        <!-- Login Section -->
+        <div id="login-section" class="section active">
+            <h2>Login</h2>
+            <div id="auth-section">
+                <label for="username-login">Username</label>
+                <input type="text" id="username-login" placeholder="Enter your username" required>
+
+                <label for="password-login">Password</label>
+                <input type="password" id="password-login" placeholder="Enter your password" required>
+
+                <button onclick="login()">Login</button>
+                <div id="auth-message" class="message"></div>
+                <button onclick="showSection('register-section')">Register</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Register Section -->
-    <div id="register-section" class="section">
-        <h2>Register</h2>
-        <div id="auth-section">
-            <label for="username-register">Username</label>
-            <input type="text" id="username-register" placeholder="Choose a username" required>
-            
-            <label for="password-register">Password</label>
-            <input type="password" id="password-register" placeholder="Create a password" required>
+        <!-- Register Section -->
+        <div id="register-section" class="section">
+            <h2>Register</h2>
+            <div id="auth-section">
+                <label for="username-register">Username</label>
+                <input type="text" id="username-register" placeholder="Choose a username" required>
 
-            <label for="age">Age</label>
-            <input type="number" id="age" placeholder="Enter your age" required>
-            
-            <label for="gender">Gender</label>
-            <select id="gender" required>
-                <option value="" disabled selected>Select your gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
+                <label for="password-register">Password</label>
+                <input type="password" id="password-register" placeholder="Create a password" required>
 
-            <button onclick="register()">Register</button>
-            <div id="auth-message"></div>
-            <button onclick="showSection('login-section')">Back to Login</button>
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Enter your age" required>
+
+                <label for="gender">Gender</label>
+                <select id="gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <button onclick="register()">Register</button>
+                <div id="auth-message" class="message"></div>
+                <button onclick="showSection('login-section')">Back to Login</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Book Borrowing Section -->
-    <div id="borrow-section" class="section">
-        <h2>Book Borrowing</h2>
-        <div id="auth-section">
-            <h3>Available Books:</h3>
-            <ul id="available-books">
-                <!-- Books will be listed here -->
-            </ul>
+        <!-- Book Borrowing Section -->
+        <div id="borrow-section" class="section">
+            <h2>Book Borrowing</h2>
+            <div id="auth-section">
+                <h3>Available Books:</h3>
+                <ul id="available-books">
+                    <!-- Books will be listed here -->
+                </ul>
 
-            <h3>Borrow a Book:</h3>
-            <select id="book-select">
-                <option value="" disabled selected>Select a book</option>
-            </select>
-            <button onclick="borrowBook()">Borrow</button>
+                <h3>Borrow a Book:</h3>
+                <select id="book-select">
+                    <option value="" disabled selected>Select a book</option>
+                </select>
+                <button onclick="borrowBook()">Borrow</button>
 
-            <h3>Borrowed Books:</h3>
-            <ul id="borrowed-books">
-                <!-- Borrowed books will be listed here -->
-            </ul>
+                <h3>Borrowed Books:</h3>
+                <ul id="borrowed-books">
+                    <!-- Borrowed books will be listed here -->
+                </ul>
 
-            <button onclick="logout()">Logout</button>
-            
-            <!-- New Excel Export Button -->
-            <button onclick="exportToExcel()">Export Borrowed Books to Excel</button>
+                <button onclick="logout()">Logout</button>
+
+                <!-- Excel Export Button -->
+                <button onclick="exportToExcel()">Export Borrowed Books to Excel</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Library Borrowing System © 2025</p>
         </div>
     </div>
 
@@ -271,4 +332,5 @@
         updateBookLists();
     </script>
 </body>
+
 </html>
