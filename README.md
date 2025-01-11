@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,47 +7,36 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #f1f1f1;
             margin: 0;
             padding: 20px;
         }
-
-        h1,
-        h2,
-        h3 {
+        h1, h2, h3 {
             text-align: center;
             color: #4A4A4A;
         }
-
         .section {
             display: none;
         }
-
         .active {
             display: block;
         }
-
-        #auth-section,
-        #borrow-section {
+        #auth-section, #borrow-section {
             background-color: #EAE1D5;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            max-width: 400px;
-            margin: 30px auto;
+            max-width: 450px;
+            margin: 40px auto;
         }
-
-        input,
-        select,
-        button {
+        input, select, button {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
+            margin: 12px 0;
             border: 2px solid #B2AFA2;
-            border-radius: 4px;
+            border-radius: 5px;
             font-size: 16px;
         }
-
         button {
             background-color: #8B6F54;
             color: white;
@@ -56,36 +44,27 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
         button:hover {
             background-color: #5B4C3A;
         }
-
         ul {
             list-style-type: none;
             padding: 0;
         }
-
         li {
-            padding: 8px;
-            background: #fff;
+            padding: 10px;
+            background-color: #fff;
             margin: 5px 0;
-            border-radius: 4px;
+            border-radius: 5px;
             border: 1px solid #ccc;
         }
-
         li.borrowed {
             background-color: #f8d7da;
             color: #721c24;
         }
     </style>
-
-    <!-- Import the xlsx library for Excel export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-
     <script type="module" src="firebaseauth.js"></script>
 </head>
-
 <body>
     <h1>Library Borrowing System</h1>
 
@@ -95,10 +74,10 @@
         <div id="auth-section">
             <label for="username-login">Username</label>
             <input type="text" id="username-login" placeholder="Enter your username" required>
-
+            
             <label for="password-login">Password</label>
             <input type="password" id="password-login" placeholder="Enter your password" required>
-
+            
             <button onclick="login()">Login</button>
             <div id="auth-message"></div>
             <button onclick="showSection('register-section')">Register</button>
@@ -111,13 +90,13 @@
         <div id="auth-section">
             <label for="username-register">Username</label>
             <input type="text" id="username-register" placeholder="Choose a username" required>
-
+            
             <label for="password-register">Password</label>
             <input type="password" id="password-register" placeholder="Create a password" required>
 
             <label for="age">Age</label>
             <input type="number" id="age" placeholder="Enter your age" required>
-
+            
             <label for="gender">Gender</label>
             <select id="gender" required>
                 <option value="" disabled selected>Select your gender</option>
@@ -137,7 +116,9 @@
         <h2>Book Borrowing</h2>
         <div id="auth-section">
             <h3>Available Books:</h3>
-            <ul id="available-books"></ul>
+            <ul id="available-books">
+                <!-- Books will be listed here -->
+            </ul>
 
             <h3>Borrow a Book:</h3>
             <select id="book-select">
@@ -146,10 +127,12 @@
             <button onclick="borrowBook()">Borrow</button>
 
             <h3>Borrowed Books:</h3>
-            <ul id="borrowed-books"></ul>
+            <ul id="borrowed-books">
+                <!-- Borrowed books will be listed here -->
+            </ul>
 
             <button onclick="logout()">Logout</button>
-
+            
             <!-- New Excel Export Button -->
             <button onclick="exportToExcel()">Export Borrowed Books to Excel</button>
         </div>
@@ -288,5 +271,4 @@
         updateBookLists();
     </script>
 </body>
-
 </html>
